@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GuestBook.Model;
 using Microsoft.AspNetCore.Mvc;
@@ -18,18 +19,26 @@ namespace GuestBook.Controllers
         }
 
         // GET: api/posts
+
         [HttpGet]
-        public Post[] Get()
+        public Post[] Get(string region = "", string template = "")
         {
-            return _context.Posts.ToArray();
+            if (String.IsNullOrEmpty(template))
+                return _context.Posts.ToArray();
+
+            var title = region == "title" || region == "both";
+            var content = region == "content" || region == "both";
+            if (!(title || content))
+                return new Post[] {};
+
+            return Filter(title, content, template);
         }
-        
-        public IActionResult Filter(bool title, bool content, string template)
+        private Post[] Filter(bool title, bool content, string template)
         {
-            return Json(_context.Posts
+            return _context.Posts
                 .Where(p => title && p.Title.Contains(template) || 
                             content && p.Content.Contains(template))
-                .ToArray());
+                .ToArray();
         }
 
         [HttpPost]

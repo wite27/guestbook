@@ -8,8 +8,17 @@ import { Http } from '@angular/http'
 export class AppComponent implements OnInit {
     constructor(private _httpService: Http) { }
     posts: Post[] = [];
+    template: "";
+    region: "title";
     ngOnInit() {
         this._httpService.get('/api/posts').subscribe(values => {
+            this.posts = values.json() as Post[];
+        });
+    }
+
+    reload() {
+        console.log("reload called");
+        this._httpService.get('/api/posts?region=' + this.region + '&template=' + this.template).subscribe(values => {
             this.posts = values.json() as Post[];
         });
     }
