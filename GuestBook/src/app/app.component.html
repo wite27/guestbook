@@ -2,8 +2,8 @@
     <poster-comp></poster-comp>
 <br/>
 <form class ="form-inline">
-    <input type="search" class="form-control" placeholder="Search.." ngChange="reload()" name = "template" [(ngModel)]="template">
-    <select class="form-control" ng-change="reload()" name = "region" [(ngModel)]="region">
+    <input type="search" class="form-control" placeholder="Search.." (change)="reload()" name = "template" [(ngModel)]="template">
+    <select class="form-control" (change)="reload()" name = "region" [(ngModel)]="region">
         <option value="title">In title</option>
         <option value="content">In content</option>
         <option value="both">In title or content</option>
