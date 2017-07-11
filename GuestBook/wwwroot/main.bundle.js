@@ -173,7 +173,6 @@ module.exports = "<form>\r\n    <div class=\"form-group\">\r\n        <label for
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PosterComponent; });
-/* unused harmony export PostToPost */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -190,11 +189,9 @@ var PosterComponent = (function () {
         this._httpService = _httpService;
     }
     PosterComponent.prototype.post = function (title, content) {
-        //const body = JSON.stringify(new PostToPost(title, content));
         var params = new URLSearchParams();
         params.set('title', title);
         params.set('content', content);
-        //const headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded' });
         this._httpService.post('/api/posts', params.toString(), { headers: headers })
             .subscribe(function (resp) { return console.log(resp); });
@@ -210,14 +207,6 @@ PosterComponent = __decorate([
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */]) === "function" && _a || Object])
 ], PosterComponent);
-
-var PostToPost = (function () {
-    function PostToPost(title, content) {
-        this.title = title;
-        this.content = content;
-    }
-    return PostToPost;
-}());
 
 var _a;
 //# sourceMappingURL=poster.component.js.map
