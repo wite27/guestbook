@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace GuestBook.Controllers
 {
     [Route("api/[controller]")]
-    public class PostController : Controller
+    public class PostsController : Controller
     {
         private readonly PostContext _context;
 
-        public PostController(PostContext context)
+        public PostsController(PostContext context)
         {
             this._context = context;
         }
@@ -25,19 +25,19 @@ namespace GuestBook.Controllers
         }
 
         // Filtered posts
-        [HttpGet]
-        public Post[] Get(bool title, bool content, string template)
+        //[HttpGet]
+        public IActionResult Filter(bool title, bool content, string template)
         {
-            return _context.Posts
+            return Json(_context.Posts
                 .Where(p => title && p.Title.Contains(template) || 
                             content && p.Content.Contains(template))
-                .ToArray();
+                .ToArray());
         }
 
 
         public void Put(Post post)
         {
-            _context.Add(post);
+            _context.Posts.Add(post);
             _context.SaveChanges();
         }
     }

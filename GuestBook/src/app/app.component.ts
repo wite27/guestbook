@@ -7,10 +7,21 @@ import { Http } from '@angular/http'
 })
 export class AppComponent implements OnInit {
     constructor(private _httpService: Http) { }
-    apiValues: string[] = [];
+    posts: Post[] = [];
     ngOnInit() {
-        this._httpService.get('/api/values').subscribe(values => {
-            this.apiValues = values.json() as string[];
+        this._httpService.get('/api/posts').subscribe(values => {
+            this.posts = values.json() as Post[];
         });
+    }
+}
+export class Post {
+    title: string;
+    content: string;
+    creationTime: Date;
+
+    constructor(title: string, content: string, creationTime: Date) {
+        this.title = title;
+        this.content = content;
+        this.creationTime = creationTime;
     }
 }

@@ -34,7 +34,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Application says what?</h1>\r\n<ul *ngFor=\"let value of apiValues\">\r\n  <li>{{value}}</li>\r\n</ul>"
+module.exports = "<h1>The Pasha's Wall</h1>\r\n    <div *ngFor=\"let post of posts\">\r\n      <h3>{{post.title}}<small><i> at {{post.creationTime.toLocaleString()}}</i></small></h3>\r\n        <p>{{post.content}}</p>\r\n    </div>"
 
 /***/ }),
 
@@ -45,6 +45,7 @@ module.exports = "<h1>Application says what?</h1>\r\n<ul *ngFor=\"let value of a
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
+/* unused harmony export Post */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -59,12 +60,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var AppComponent = (function () {
     function AppComponent(_httpService) {
         this._httpService = _httpService;
-        this.apiValues = [];
+        this.posts = [];
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this._httpService.get('/api/values').subscribe(function (values) {
-            _this.apiValues = values.json();
+        this._httpService.get('/api/posts').subscribe(function (values) {
+            _this.posts = values.json();
         });
     };
     return AppComponent;
@@ -77,6 +78,15 @@ AppComponent = __decorate([
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
 ], AppComponent);
+
+var Post = (function () {
+    function Post(title, content, creationTime) {
+        this.title = title;
+        this.content = content;
+        this.creationTime = creationTime;
+    }
+    return Post;
+}());
 
 var _a;
 //# sourceMappingURL=app.component.js.map

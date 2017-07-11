@@ -53,6 +53,8 @@ namespace GuestBook
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            
+            SamplePostData.Initialize(app.ApplicationServices);
         }
     }
 }
