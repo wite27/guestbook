@@ -23,9 +23,7 @@ namespace GuestBook.Controllers
         {
             return _context.Posts.ToArray();
         }
-
-        // Filtered posts
-        //[HttpGet]
+        
         public IActionResult Filter(bool title, bool content, string template)
         {
             return Json(_context.Posts
@@ -34,8 +32,15 @@ namespace GuestBook.Controllers
                 .ToArray());
         }
 
-
-        public void Put(Post post)
+        [HttpPost]
+        public void Post(string title, string content)
+        {
+            if (title != null && content != null)
+            {
+                Post(new Post(title, content));
+            }
+        }
+        private void Post(Post post)
         {
             _context.Posts.Add(post);
             _context.SaveChanges();
