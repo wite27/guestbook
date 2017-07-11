@@ -1,5 +1,5 @@
 ﻿<h1>The Pasha's Wall</h1>
     <div *ngFor="let post of posts">
-      <h3>{{post.title}}<small><i> at {{post.creationTime.toLocaleString()}}</i></small></h3>
+      <h3>{{post.title}}<small><i> {{post.creationTime | date:"MM/dd/yyyy 'at' h:mma"}}</i></small></h3>
         <p>{{post.content}}</p>
     </div>
