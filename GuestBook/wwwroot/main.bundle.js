@@ -34,7 +34,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1>The Pasha's Wall</h1>\r\n    <poster-comp></poster-comp>\r\n    <br/>\r\n    <div *ngFor=\"let post of posts\">\r\n      <h3>{{post.title}}<small><i> {{post.creationTime | date:\"MM/dd/yyyy 'at' h:mma\"}}</i></small></h3>\r\n        <p>{{post.content}}</p>\r\n    </div>"
+module.exports = "<h1>The Pasha's Wall</h1>\r\n    <poster-comp></poster-comp>\r\n<br/>\r\n<form class =\"form-inline\">\r\n    <input type=\"search\" class=\"form-control\" placeholder=\"Search..\">\r\n    <select class=\"form-control\">\r\n        <option>In title</option>\r\n        <option>In content</option>\r\n        <option>In title or content</option>\r\n    </select>\r\n</form>\r\n<br/>\r\n<div *ngFor=\"let post of posts\">\r\n    <h3>{{post.title}}<small><i> {{post.creationTime | date:\"MM/dd/yyyy 'at' h:mma\"}}</i></small></h3>\r\n    <p>{{post.content}}</p>\r\n</div>"
 
 /***/ }),
 
