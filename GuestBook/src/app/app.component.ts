@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http'
+import { Http, Headers, RequestOptions, URLSearchParams, Response } from '@angular/http'
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -24,6 +24,10 @@ export class AppComponent implements OnInit {
 
     setPage(page: number) {
         this.getData(this.region, this.template, page);
+    }
+
+    onPosted(resp: Response) {
+        this.reload();
     }
 
     getData(region: string = undefined, template: string = undefined, page: number = undefined) {

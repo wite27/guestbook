@@ -1,7 +1,7 @@
 ﻿<div>
     <div class="container">
         <h1>The Pasha's Wall</h1>
-        <poster-comp></poster-comp>
+        <poster-comp (onPosted)="onPosted($event)"></poster-comp>
         <br />
         <form class="form-inline">
             <input type="search" class="form-control" placeholder="Search.." (input)="reload()" name="template" [(ngModel)]="template">

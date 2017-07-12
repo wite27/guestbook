@@ -34,7 +34,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n    <div class=\"container\">\r\n        <h1>The Pasha's Wall</h1>\r\n        <poster-comp></poster-comp>\r\n        <br />\r\n        <form class=\"form-inline\">\r\n            <input type=\"search\" class=\"form-control\" placeholder=\"Search..\" (input)=\"reload()\" name=\"template\" [(ngModel)]=\"template\">\r\n            <select class=\"form-control\" (change)=\"reload()\" name=\"region\" [(ngModel)]=\"region\">\r\n                <option value=\"title\">In title</option>\r\n                <option value=\"content\">In content</option>\r\n                <option value=\"both\">In title or content</option>\r\n            </select>\r\n            <button type=\"submit\" class=\"btn btn-default\" (click)=\"reload()\">Go!</button>\r\n        </form>\r\n        <br />\r\n        <div *ngIf=\"posts.length==0\">\r\n            <p>Your search query has no results!</p>\r\n        </div>\r\n        <div *ngFor=\"let post of posts\">\r\n            <h3>{{post.title}}<small><i> {{post.creationTime | date:\"MM/dd/yyyy 'at' h:mma\"}}</i></small></h3>\r\n            <p>{{post.content}}</p>\r\n        </div>\r\n        <ul class=\"pagination\">\r\n            <li *ngFor=\"let page of range(1, totalPages)\" [ngClass]=\"{active:page === currentPage}\">\r\n                <a (click)=\"setPage(page)\">{{page}}</a>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n</div>"
+module.exports = "<div>\r\n    <div class=\"container\">\r\n        <h1>The Pasha's Wall</h1>\r\n        <poster-comp (onPosted)=\"onPosted($event)\"></poster-comp>\r\n        <br />\r\n        <form class=\"form-inline\">\r\n            <input type=\"search\" class=\"form-control\" placeholder=\"Search..\" (input)=\"reload()\" name=\"template\" [(ngModel)]=\"template\">\r\n            <select class=\"form-control\" (change)=\"reload()\" name=\"region\" [(ngModel)]=\"region\">\r\n                <option value=\"title\">In title</option>\r\n                <option value=\"content\">In content</option>\r\n                <option value=\"both\">In title or content</option>\r\n            </select>\r\n            <button type=\"submit\" class=\"btn btn-default\" (click)=\"reload()\">Go!</button>\r\n        </form>\r\n        <br />\r\n        <div *ngIf=\"posts.length==0\">\r\n            <p>Your search query has no results!</p>\r\n        </div>\r\n        <div *ngFor=\"let post of posts\">\r\n            <h3>{{post.title}}<small><i> {{post.creationTime | date:\"MM/dd/yyyy 'at' h:mma\"}}</i></small></h3>\r\n            <p>{{post.content}}</p>\r\n        </div>\r\n        <ul class=\"pagination\">\r\n            <li *ngFor=\"let page of range(1, totalPages)\" [ngClass]=\"{active:page === currentPage}\">\r\n                <a (click)=\"setPage(page)\">{{page}}</a>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -73,6 +73,9 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.setPage = function (page) {
         this.getData(this.region, this.template, page);
+    };
+    AppComponent.prototype.onPosted = function (resp) {
+        this.reload();
     };
     AppComponent.prototype.getData = function (region, template, page) {
         var _this = this;
@@ -203,7 +206,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/poster.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form>\r\n    <div class=\"form-group\">\r\n        <label for=\"title\">Title</label>\r\n        <input type=\"text\" class=\"form-control\" name =\"title\" [(ngModel)] =\"title\" placeholder=\"Title\" required>\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <label for=\"content\">Content</label>\r\n        <textarea type=\"text\" rows=\"5\" class=\"form-control\" name=\"content\" [(ngModel)]=\"content\" placeholder=\"Your content here\" required></textarea>\r\n    </div>\r\n    <button type=\"submit\" class=\"btn btn-default\" (click)=\"post(title, content)\">Post it!</button>\r\n</form>"
+module.exports = "<form>\r\n    <div class=\"form-group\">\r\n        <label for=\"title\">Title</label>\r\n        <input type=\"text\" class=\"form-control\" name =\"title\" [(ngModel)] =\"title\" placeholder=\"Title\">\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <label for=\"content\">Content</label>\r\n        <textarea type=\"text\" rows=\"5\" class=\"form-control\" name=\"content\" [(ngModel)]=\"content\" placeholder=\"Your content here\"></textarea>\r\n    </div>\r\n    <button type=\"submit\" class=\"btn btn-default\" (click)=\"post(title, content)\">Post it!</button>\r\n</form>"
 
 /***/ }),
 
@@ -228,18 +231,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var PosterComponent = (function () {
     function PosterComponent(_httpService) {
         this._httpService = _httpService;
+        this.onPosted = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */]();
     }
     PosterComponent.prototype.post = function (title, content) {
+        var _this = this;
         var params = new URLSearchParams();
         params.set('title', title);
         params.set('content', content);
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded' });
         this._httpService.post('/api/posts', params.toString(), { headers: headers })
-            .subscribe(function (resp) { return console.log(resp); });
+            .subscribe(function (resp) { return _this.onPosted.emit(resp); });
         console.log("ok");
     };
     return PosterComponent;
 }());
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_3" /* Output */])(),
+    __metadata("design:type", Object)
+], PosterComponent.prototype, "onPosted", void 0);
 PosterComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Component */])({
         selector: 'poster-comp',
