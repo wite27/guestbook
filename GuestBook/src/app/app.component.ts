@@ -16,8 +16,9 @@ export class AppComponent implements OnInit {
     ];
     // selected region for finding
     region: { value: 'title', desc: 'In title' };
-
     ngOnInit() {
+        // selected region for finding
+        this.region = { value: 'title', desc: 'In title' };
         this._httpService.get('/api/posts').subscribe(values => {
             this.posts = values.json() as Post[];
         });

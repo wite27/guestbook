@@ -34,7 +34,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1>The Pasha's Wall</h1>\r\n    <poster-comp></poster-comp>\r\n<br/>\r\n<form class =\"form-inline\">\r\n    <input type=\"search\" class=\"form-control\" placeholder=\"Search..\" (change)=\"reload()\" name = \"template\" [(ngModel)]=\"template\">\r\n    <select name=\"region\" id =\"region-select\" \r\n            ng-options=\"option.desc for option in regions track by option.value\"\r\n            [(ngModel)]=\"region\" (change)=\"reload()\">\r\n    </select>\r\n    <button type=\"submit\" class=\"btn btn-default\" (click)=\"reload()\">Go!</button>\r\n</form>\r\n<br/>\r\n<div *ngFor=\"let post of posts\">\r\n    <h3>{{post.title}}<small><i> {{post.creationTime | date:\"MM/dd/yyyy 'at' h:mma\"}}</i></small></h3>\r\n    <p>{{post.content}}</p>\r\n</div>"
+module.exports = "<h1>The Pasha's Wall</h1>\r\n    <poster-comp></poster-comp>\r\n<br/>\r\n<form class =\"form-inline\">\r\n    <input type=\"search\" class=\"form-control\" placeholder=\"Search..\" (change)=\"reload()\" name = \"template\" [(ngModel)]=\"template\">\r\n    <select name=\"region\" id =\"region-select\" \r\n            ng-options=\"option.desc for option in regions track by option.value\"\r\n            ng-model=\"region\" (change)=\"reload()\">\r\n    </select>\r\n    <button type=\"submit\" class=\"btn btn-default\" (click)=\"reload()\">Go!</button>\r\n</form>\r\n<br/>\r\n<div *ngFor=\"let post of posts\">\r\n    <h3>{{post.title}}<small><i> {{post.creationTime | date:\"MM/dd/yyyy 'at' h:mma\"}}</i></small></h3>\r\n    <p>{{post.content}}</p>\r\n</div>"
 
 /***/ }),
 
@@ -64,6 +64,8 @@ var AppComponent = (function () {
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
+        // selected region for finding
+        this.region = { value: 'title', desc: 'In title' };
         this._httpService.get('/api/posts').subscribe(function (values) {
             _this.posts = values.json();
         });
@@ -71,6 +73,7 @@ var AppComponent = (function () {
     AppComponent.prototype.reload = function () {
         var _this = this;
         console.log("reload called");
+        console.log(this.region.value);
         this._httpService.get('/api/posts?region=' + this.region.value + '&template=' + this.template).subscribe(function (values) {
             _this.posts = values.json();
         });

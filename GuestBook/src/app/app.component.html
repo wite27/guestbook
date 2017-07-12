@@ -5,7 +5,7 @@
     <input type="search" class="form-control" placeholder="Search.." (change)="reload()" name = "template" [(ngModel)]="template">
     <select name="region" id ="region-select" 
             ng-options="option.desc for option in regions track by option.value"
-            [(ngModel)]="region" (change)="reload()">
+            ng-model="region" (change)="reload()">
     </select>
     <button type="submit" class="btn btn-default" (click)="reload()">Go!</button>
 </form>
