@@ -12,6 +12,9 @@
         <button type="submit" class="btn btn-default" (click)="reload()">Go!</button>
     </form>
     <br />
+    <div *ngIf="posts.length==0">
+        <p>Your search query has no results!</p>
+    </div>
     <div *ngFor="let post of posts">
         <h3>{{post.title}}<small><i> {{post.creationTime | date:"MM/dd/yyyy 'at' h:mma"}}</i></small></h3>
         <p>{{post.content}}</p>
