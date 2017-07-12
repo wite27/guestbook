@@ -8,20 +8,46 @@ import { Http } from '@angular/http'
 export class AppComponent implements OnInit {
     constructor(private _httpService: Http) { }
     posts: Post[] = [];
+    currentPage: number;
+    totalPages: number;
     template: "";
     region: "title";
     ngOnInit() {
         this._httpService.get('/api/posts').subscribe(values => {
             this.region = "title";
-            this.posts = (values.json() as PagedPosts).posts;
+            this.template = "";
+            let paged = (values.json() as PagedPosts);
+            this.posts = paged.posts;
+            this.currentPage = paged.page;
+            this.totalPages = paged.totalPages;
         });
     }
 
     reload() {
         console.log("reload called");
         this._httpService.get('/api/posts?region=' + this.region + '&template=' + this.template).subscribe(values => {
-            this.posts = (values.json() as PagedPosts).posts;
+            let paged = (values.json() as PagedPosts);
+            this.posts = paged.posts;
+            this.currentPage = paged.page;
+            this.totalPages = paged.totalPages;
         });
+    }
+
+    setPage(page: number) {
+        this._httpService.get('/api/posts?region=' + this.region + '&template=' + this.template + '&page=' + page).subscribe(values => {
+            let paged = (values.json() as PagedPosts);
+            this.posts = paged.posts;
+            this.currentPage = paged.page;
+            this.totalPages = paged.totalPages;
+        });
+    }
+
+    range(min: number, max: number) {
+        var input = [];
+        for (var i = min; i <= max; i += 1) {
+            input.push(i);
+        }
+        return input;
     }
 }
 

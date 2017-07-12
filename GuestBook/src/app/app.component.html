@@ -15,3 +15,6 @@
     <h3>{{post.title}}<small><i> {{post.creationTime | date:"MM/dd/yyyy 'at' h:mma"}}</i></small></h3>
     <p>{{post.content}}</p>
 </div>
+<li *ngFor="let page of range(1, totalPages)" [ngClass]="{active:page === currentPage}">
+    <a (click)="setPage(page)">{{page}}</a>
+</li>
