@@ -9,16 +9,8 @@ export class AppComponent implements OnInit {
     constructor(private _httpService: Http) { }
     posts: Post[] = [];
     template: "";
-    regions: [
-        { value: 'title', desc: 'In title' },
-        { value: 'content', desc: 'In content' },
-        { value: 'both', desc: 'In title or content' }
-    ];
-    // selected region for finding
-    region: { value: 'title', desc: 'In title' };
+    region: "title";
     ngOnInit() {
-        // selected region for finding
-        this.region = { value: 'title', desc: 'In title' };
         this._httpService.get('/api/posts').subscribe(values => {
             //console.log(values.json());
             this.posts = (values.json() as PagedPosts).posts;
@@ -27,7 +19,7 @@ export class AppComponent implements OnInit {
 
     reload() {
         console.log("reload called");
-        this._httpService.get('/api/posts?region=' + this.region.value + '&template=' + this.template).subscribe(values => {
+        this._httpService.get('/api/posts?region=' + this.region + '&template=' + this.template).subscribe(values => {
             //console.log(values.json());
             this.posts = (values.json() as PagedPosts).posts;
         });
