@@ -7,6 +7,7 @@ namespace GuestBook.Model
 {
     public class PagedPosts
     {
+        private const int PageSize = 5;
         public Post[] Posts { get; set; }
         public int Page { get; set; }
         public int TotalPages { get; }
@@ -15,11 +16,11 @@ namespace GuestBook.Model
         {
             Posts = posts
                 .OrderByDescending(p => p.CreationTime)
-                .Skip( (page-1) * 5)
-                .Take(5)
+                .Skip( (page-1) * PageSize)
+                .Take(PageSize)
                 .ToArray();
             Page = page;
-            TotalPages = (int)Math.Ceiling(posts.Count() / 5.0);
+            TotalPages = (int)Math.Ceiling(posts.Count() / (double)PageSize);
         }
 
         public PagedPosts()
