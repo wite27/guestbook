@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http'
+import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http'
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -34,8 +34,8 @@ export class AppComponent implements OnInit {
             params.set('template', template);
         if (page)
             params.set('page', page.toString());
-
-        this._httpService.get('/api/posts?' + params.toString()).subscribe(values => {
+        
+        this._httpService.get('/api/posts?', {params: params}).subscribe(values => {
             const paged = (values.json() as PagedPosts);
             this.posts = paged.posts;
             this.currentPage = paged.page;

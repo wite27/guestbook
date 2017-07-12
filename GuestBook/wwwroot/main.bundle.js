@@ -67,46 +67,31 @@ var AppComponent = (function () {
         this.region = "title";
         this.template = "";
         this.getData();
-        //this._httpService.get('/api/posts').subscribe(values => {
-        //    let paged = (values.json() as PagedPosts);
-        //    this.posts = paged.posts;
-        //    this.currentPage = paged.page;
-        //    this.totalPages = paged.totalPages;
-        //});
     };
     AppComponent.prototype.reload = function () {
-        console.log("reload called");
         this.getData(this.region, this.template);
-        //this._httpService.get('/api/posts?region=' + this.region + '&template=' + this.template).subscribe(values => {
-        //    let paged = (values.json() as PagedPosts);
-        //    this.posts = paged.posts;
-        //    this.currentPage = paged.page;
-        //    this.totalPages = paged.totalPages;
-        //});
     };
     AppComponent.prototype.setPage = function (page) {
         this.getData(this.region, this.template, page);
-        //this._httpService.get('/api/posts?region=' + this.region + '&template=' + this.template + '&page=' + page).subscribe(values => {
-        //    let paged = (values.json() as PagedPosts);
-        //    this.posts = paged.posts;
-        //    this.currentPage = paged.page;
-        //    this.totalPages = paged.totalPages;
-        //});
     };
     AppComponent.prototype.getData = function (region, template, page) {
         var _this = this;
         if (region === void 0) { region = undefined; }
         if (template === void 0) { template = undefined; }
         if (page === void 0) { page = undefined; }
-        var params = new URLSearchParams();
+        var params = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* URLSearchParams */]();
         if (region)
             params.set('region', region);
         if (template)
             params.set('template', template);
         if (page)
             params.set('page', page.toString());
-        console.log(params.toString());
-        this._httpService.get('/api/posts?' + params.toString()).subscribe(function (values) {
+        //let headers = new Headers({ 'Content-Type': 'application/json' });
+        //let options = new RequestOptions({
+        //    headers: headers,
+        //    search: params
+        //});
+        this._httpService.get('/api/posts?', { params: params }).subscribe(function (values) {
             var paged = values.json();
             _this.posts = paged.posts;
             _this.currentPage = paged.page;
