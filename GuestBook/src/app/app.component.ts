@@ -9,7 +9,21 @@ export class AppComponent implements OnInit {
     constructor(private _httpService: Http) { }
     posts: Post[] = [];
     template: "";
-    region: "title";
+    regions: [
+        { value: 'title', desc: 'In title' },
+        { value: 'content', desc: 'In content' },
+        { value: 'both', desc: 'In title or content' }
+    ];
+    // selected region for finding
+    region: { value: 'title', desc: 'In title' };
+    data = {
+        availableOptions: [
+            { id: '1', name: 'Option A' },
+            { id: '2', name: 'Option B' },
+            { id: '3', name: 'Option C' }
+        ],
+        selectedOption: { id: '3', name: 'Option C' } //This sets the default value of the select in the ui
+    };
     ngOnInit() {
         this._httpService.get('/api/posts').subscribe(values => {
             this.posts = values.json() as Post[];
@@ -18,7 +32,7 @@ export class AppComponent implements OnInit {
 
     reload() {
         console.log("reload called");
-        this._httpService.get('/api/posts?region=' + this.region + '&template=' + this.template).subscribe(values => {
+        this._httpService.get('/api/posts?region=' + this.region.value + '&template=' + this.template).subscribe(values => {
             this.posts = values.json() as Post[];
         });
     }
