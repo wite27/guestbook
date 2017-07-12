@@ -16,14 +16,7 @@ export class AppComponent implements OnInit {
     ];
     // selected region for finding
     region: { value: 'title', desc: 'In title' };
-    data = {
-        availableOptions: [
-            { id: '1', name: 'Option A' },
-            { id: '2', name: 'Option B' },
-            { id: '3', name: 'Option C' }
-        ],
-        selectedOption: { id: '3', name: 'Option C' } //This sets the default value of the select in the ui
-    };
+
     ngOnInit() {
         this._httpService.get('/api/posts').subscribe(values => {
             this.posts = values.json() as Post[];
