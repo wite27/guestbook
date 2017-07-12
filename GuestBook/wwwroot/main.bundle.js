@@ -64,29 +64,49 @@ var AppComponent = (function () {
         this.posts = [];
     }
     AppComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this._httpService.get('/api/posts').subscribe(function (values) {
-            _this.region = "title";
-            _this.template = "";
-            var paged = values.json();
-            _this.posts = paged.posts;
-            _this.currentPage = paged.page;
-            _this.totalPages = paged.totalPages;
-        });
+        this.region = "title";
+        this.template = "";
+        this.getData();
+        //this._httpService.get('/api/posts').subscribe(values => {
+        //    let paged = (values.json() as PagedPosts);
+        //    this.posts = paged.posts;
+        //    this.currentPage = paged.page;
+        //    this.totalPages = paged.totalPages;
+        //});
     };
     AppComponent.prototype.reload = function () {
-        var _this = this;
         console.log("reload called");
-        this._httpService.get('/api/posts?region=' + this.region + '&template=' + this.template).subscribe(function (values) {
-            var paged = values.json();
-            _this.posts = paged.posts;
-            _this.currentPage = paged.page;
-            _this.totalPages = paged.totalPages;
-        });
+        this.getData(this.region, this.template);
+        //this._httpService.get('/api/posts?region=' + this.region + '&template=' + this.template).subscribe(values => {
+        //    let paged = (values.json() as PagedPosts);
+        //    this.posts = paged.posts;
+        //    this.currentPage = paged.page;
+        //    this.totalPages = paged.totalPages;
+        //});
     };
     AppComponent.prototype.setPage = function (page) {
+        this.getData(this.region, this.template, page);
+        //this._httpService.get('/api/posts?region=' + this.region + '&template=' + this.template + '&page=' + page).subscribe(values => {
+        //    let paged = (values.json() as PagedPosts);
+        //    this.posts = paged.posts;
+        //    this.currentPage = paged.page;
+        //    this.totalPages = paged.totalPages;
+        //});
+    };
+    AppComponent.prototype.getData = function (region, template, page) {
         var _this = this;
-        this._httpService.get('/api/posts?region=' + this.region + '&template=' + this.template + '&page=' + page).subscribe(function (values) {
+        if (region === void 0) { region = undefined; }
+        if (template === void 0) { template = undefined; }
+        if (page === void 0) { page = undefined; }
+        var params = new URLSearchParams();
+        if (region)
+            params.set('region', region);
+        if (template)
+            params.set('template', template);
+        if (page)
+            params.set('page', page.toString());
+        console.log(params.toString());
+        this._httpService.get('/api/posts?' + params.toString()).subscribe(function (values) {
             var paged = values.json();
             _this.posts = paged.posts;
             _this.currentPage = paged.page;

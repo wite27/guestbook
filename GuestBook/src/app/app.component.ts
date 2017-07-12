@@ -13,29 +13,30 @@ export class AppComponent implements OnInit {
     template: "";
     region: "title";
     ngOnInit() {
-        this._httpService.get('/api/posts').subscribe(values => {
-            this.region = "title";
-            this.template = "";
-            let paged = (values.json() as PagedPosts);
-            this.posts = paged.posts;
-            this.currentPage = paged.page;
-            this.totalPages = paged.totalPages;
-        });
+        this.region = "title";
+        this.template = "";
+        this.getData();
     }
 
     reload() {
-        console.log("reload called");
-        this._httpService.get('/api/posts?region=' + this.region + '&template=' + this.template).subscribe(values => {
-            let paged = (values.json() as PagedPosts);
-            this.posts = paged.posts;
-            this.currentPage = paged.page;
-            this.totalPages = paged.totalPages;
-        });
+        this.getData(this.region, this.template);
     }
 
     setPage(page: number) {
-        this._httpService.get('/api/posts?region=' + this.region + '&template=' + this.template + '&page=' + page).subscribe(values => {
-            let paged = (values.json() as PagedPosts);
+        this.getData(this.region, this.template, page);
+    }
+
+    getData(region: string = undefined, template: string = undefined, page: number = undefined) {
+        const params = new URLSearchParams();
+        if (region)
+            params.set('region', region);
+        if (template)
+            params.set('template', template);
+        if (page)
+            params.set('page', page.toString());
+
+        this._httpService.get('/api/posts?' + params.toString()).subscribe(values => {
+            const paged = (values.json() as PagedPosts);
             this.posts = paged.posts;
             this.currentPage = paged.page;
             this.totalPages = paged.totalPages;
