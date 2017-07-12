@@ -14,6 +14,7 @@ namespace GuestBook.Model
         public PagedPosts(IEnumerable<Post> posts, int page)
         {
             Posts = posts
+                .OrderByDescending(p => p.CreationTime)
                 .Skip( (page-1) * 5)
                 .Take(5)
                 .ToArray();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using GuestBook.Model;
 using Microsoft.AspNetCore.Mvc;
 
@@ -53,6 +54,8 @@ namespace GuestBook.Controllers
         {
             _context.Posts.Add(post);
             _context.SaveChanges();
+
+            Response.StatusCode = (int)HttpStatusCode.Created;
         }
     }
 }
