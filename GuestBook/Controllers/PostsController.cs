@@ -21,24 +21,24 @@ namespace GuestBook.Controllers
         // GET: api/posts
 
         [HttpGet]
-        public Post[] Get(string region = "", string template = "")
+        public PagedPosts Get(int page = 1, string region = "", string template = "")
         {
             if (String.IsNullOrEmpty(template))
-                return _context.Posts.ToArray();
+                return new PagedPosts(_context.Posts, page);
 
             var title = region == "title" || region == "both";
             var content = region == "content" || region == "both";
             if (!(title || content))
-                return new Post[] {};
+                return new PagedPosts();
 
-            return Filter(title, content, template);
+            return new PagedPosts(Filter(title, content, template), page);
         }
-        private Post[] Filter(bool title, bool content, string template)
+
+        private IEnumerable<Post> Filter(bool title, bool content, string template)
         {
             return _context.Posts
                 .Where(p => title && p.Title.Contains(template) || 
-                            content && p.Content.Contains(template))
-                .ToArray();
+                            content && p.Content.Contains(template));
         }
 
         [HttpPost]
