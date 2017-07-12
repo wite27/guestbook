@@ -66,7 +66,7 @@ var AppComponent = (function () {
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._httpService.get('/api/posts').subscribe(function (values) {
-            //console.log(values.json());
+            _this.region = "title";
             _this.posts = values.json().posts;
         });
     };
@@ -74,7 +74,6 @@ var AppComponent = (function () {
         var _this = this;
         console.log("reload called");
         this._httpService.get('/api/posts?region=' + this.region + '&template=' + this.template).subscribe(function (values) {
-            //console.log(values.json());
             _this.posts = values.json().posts;
         });
     };

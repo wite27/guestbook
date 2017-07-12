@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
     region: "title";
     ngOnInit() {
         this._httpService.get('/api/posts').subscribe(values => {
-            //console.log(values.json());
+            this.region = "title";
             this.posts = (values.json() as PagedPosts).posts;
         });
     }
@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
     reload() {
         console.log("reload called");
         this._httpService.get('/api/posts?region=' + this.region + '&template=' + this.template).subscribe(values => {
-            //console.log(values.json());
             this.posts = (values.json() as PagedPosts).posts;
         });
     }
