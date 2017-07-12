@@ -20,17 +20,20 @@ export class AppComponent implements OnInit {
         // selected region for finding
         this.region = { value: 'title', desc: 'In title' };
         this._httpService.get('/api/posts').subscribe(values => {
-            this.posts = values.json() as Post[];
+            //console.log(values.json());
+            this.posts = (values.json() as PagedPosts).posts;
         });
     }
 
     reload() {
         console.log("reload called");
         this._httpService.get('/api/posts?region=' + this.region.value + '&template=' + this.template).subscribe(values => {
-            this.posts = values.json() as Post[];
+            //console.log(values.json());
+            this.posts = (values.json() as PagedPosts).posts;
         });
     }
 }
+
 export class Post {
     title: string;
     content: string;
@@ -40,5 +43,17 @@ export class Post {
         this.title = title;
         this.content = content;
         this.creationTime = creationTime;
+    }
+}
+
+export class PagedPosts {
+    posts: Post[];
+    page: number;
+    totalPages: number;
+
+    constructor(posts: Post[], page: number, totalPages: number) {
+        this.posts = posts;
+        this.page = page;
+        this.totalPages = totalPages;
     }
 }

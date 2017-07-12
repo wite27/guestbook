@@ -3,7 +3,7 @@
 <br/>
 <form class ="form-inline">
     <input type="search" class="form-control" placeholder="Search.." (change)="reload()" name = "template" [(ngModel)]="template">
-    <select name="region" id ="region-select" 
+    <select name="region" id ="region-select" class="form-control"
             ng-options="option.desc for option in regions track by option.value"
             ng-model="region" (change)="reload()">
     </select>

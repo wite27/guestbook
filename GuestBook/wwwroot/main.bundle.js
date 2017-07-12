@@ -46,6 +46,7 @@ module.exports = "<h1>The Pasha's Wall</h1>\r\n    <poster-comp></poster-comp>\r
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 /* unused harmony export Post */
+/* unused harmony export PagedPosts */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -67,15 +68,16 @@ var AppComponent = (function () {
         // selected region for finding
         this.region = { value: 'title', desc: 'In title' };
         this._httpService.get('/api/posts').subscribe(function (values) {
-            _this.posts = values.json();
+            console.log(values.json());
+            _this.posts = values.json().posts;
         });
     };
     AppComponent.prototype.reload = function () {
         var _this = this;
         console.log("reload called");
-        console.log(this.region.value);
         this._httpService.get('/api/posts?region=' + this.region.value + '&template=' + this.template).subscribe(function (values) {
-            _this.posts = values.json();
+            console.log(values.json());
+            _this.posts = values.json().posts;
         });
     };
     return AppComponent;
@@ -96,6 +98,15 @@ var Post = (function () {
         this.creationTime = creationTime;
     }
     return Post;
+}());
+
+var PagedPosts = (function () {
+    function PagedPosts(posts, page, totalPages) {
+        this.posts = posts;
+        this.page = page;
+        this.totalPages = totalPages;
+    }
+    return PagedPosts;
 }());
 
 var _a;
