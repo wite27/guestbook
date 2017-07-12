@@ -203,7 +203,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/poster.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form>\r\n    <div class=\"form-group\">\r\n        <label for=\"title\">Title</label>\r\n        <input type=\"text\" class=\"form-control\" name =\"title\" [(ngModel)] =\"title\" placeholder=\"Title\">\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <label for=\"content\">Content</label>\r\n        <input type=\"text\" class=\"form-control\" name =\"content\" [(ngModel)] =\"content\" placeholder=\"Your content here\">\r\n    </div>\r\n    <button type=\"submit\" class=\"btn btn-default\" (click)=\"post(title, content)\">Post it!</button>\r\n</form>"
+module.exports = "<form>\r\n    <div class=\"form-group\">\r\n        <label for=\"title\">Title</label>\r\n        <input type=\"text\" class=\"form-control\" name =\"title\" [(ngModel)] =\"title\" placeholder=\"Title\" required>\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <label for=\"content\">Content</label>\r\n        <textarea type=\"text\" rows=\"5\" class=\"form-control\" name=\"content\" [(ngModel)]=\"content\" placeholder=\"Your content here\" required></textarea>\r\n    </div>\r\n    <button type=\"submit\" class=\"btn btn-default\" (click)=\"post(title, content)\">Post it!</button>\r\n</form>"
 
 /***/ }),
 
