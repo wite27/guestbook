@@ -23,7 +23,7 @@
             </div>
             <div *ngFor="let post of posts">
                 <h3 style="word-wrap: break-word">
-                    {{post.title}}<small><i> {{post.creationTime | date:"MM/dd/yyyy 'at' h:mma" : 'UTC'}}</i></small>
+                    {{post.title}}<small><i> {{post.creationTime | date:"MM/dd/yyyy 'at' h:mma"}}</i></small>
                 </h3>
                 <p style="word-wrap: break-word">{{post.content}}</p>
             </div>
