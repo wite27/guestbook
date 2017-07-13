@@ -19,6 +19,8 @@ namespace GuestBook.Model
                 .Skip( (page-1) * PageSize)
                 .Take(PageSize)
                 .ToArray();
+            foreach (var post in Posts)
+                post.CreationTime = DateTime.SpecifyKind(post.CreationTime, DateTimeKind.Utc);
             Page = page;
             TotalPages = (int)Math.Ceiling(posts.Count() / (double)PageSize);
         }
