@@ -1,5 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Http, Headers, RequestOptions, URLSearchParams, Response } from '@angular/http'
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -30,6 +33,8 @@ export class AppComponent implements OnInit {
         this.reload();
     }
 
+    subscripition: Subscription;
+
     getData(region: string = undefined, template: string = undefined, page: number = undefined) {
         const params = new URLSearchParams();
         if (region)
@@ -39,7 +44,10 @@ export class AppComponent implements OnInit {
         if (page)
             params.set('page', page.toString());
         
-        this._httpService.get('/api/posts?', {params: params}).subscribe(values => {
+        if (this.subscripition)
+            this.subscripition.unsubscribe();
+
+        this.subscripition = this._httpService.get('/api/posts?', {params: params}).subscribe(values => {
             const paged = (values.json() as PagedPosts);
             this.posts = paged.posts;
             this.currentPage = paged.page;

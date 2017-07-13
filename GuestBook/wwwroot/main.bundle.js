@@ -89,7 +89,9 @@ var AppComponent = (function () {
             params.set('template', template);
         if (page)
             params.set('page', page.toString());
-        this._httpService.get('/api/posts?', { params: params }).subscribe(function (values) {
+        if (this.subscripition)
+            this.subscripition.unsubscribe();
+        this.subscripition = this._httpService.get('/api/posts?', { params: params }).subscribe(function (values) {
             var paged = values.json();
             _this.posts = paged.posts;
             _this.currentPage = paged.page;
