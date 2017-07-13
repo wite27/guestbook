@@ -12,7 +12,7 @@ namespace GuestBook.Model
         {
             this.Title = title;
             this.Content = content;
-            this.CreationTime = DateTime.Now;
+            this.CreationTime = DateTime.Now.ToUniversalTime();
         }
 
         public int Id { get; set; }
