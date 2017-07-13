@@ -22,10 +22,10 @@
                 <p>Your search query has no results!</p>
             </div>
             <div *ngFor="let post of posts">
-                <h3>
+                <h3 style="word-wrap: break-word">
                     {{post.title}}<small><i> {{post.creationTime | date:"MM/dd/yyyy 'at' h:mma"}}</i></small>
                 </h3>
-                <p>{{post.content}}</p>
+                <p style="word-wrap: break-word">{{post.content}}</p>
             </div>
             <ul class="pagination">
                 <li *ngFor="let page of range(1, totalPages)" [ngClass]="{active:page === currentPage}">
