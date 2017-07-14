@@ -34,7 +34,9 @@ namespace GuestBook
         {
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<PostContext>(options => options.UseSqlServer(connection));
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(
+                    options => options.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

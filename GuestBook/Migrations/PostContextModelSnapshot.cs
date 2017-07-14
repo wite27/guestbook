@@ -24,7 +24,7 @@ namespace GuestBook.Migrations
                     b.Property<string>("Content");
 
                     b.Property<DateTime>("CreationTime");
-
+                    
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
