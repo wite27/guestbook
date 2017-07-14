@@ -208,7 +208,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/poster.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form>\r\n    <div class=\"form-group\" [ngClass]=\"{ 'has-error': titleInput.invalid && !titleInput.untouched}\">\r\n        <label for=\"title\">Title</label>\r\n        <input type=\"text\" class=\"form-control\" name =\"title\" [(ngModel)] =\"title\" placeholder=\"Title\" #titleInput=\"ngModel\" required>\r\n    </div>\r\n    <div class=\"form-group\" [ngClass]=\"{ 'has-error': contentInput.invalid && !contentInput.untouched}\">\r\n        <label for=\"content\">Content</label>\r\n        <textarea type=\"text\" rows=\"5\" class=\"form-control\" name=\"content\" [(ngModel)]=\"content\" placeholder=\"Your content here\" #contentInput=\"ngModel\" required></textarea>\r\n    </div>\r\n    <button [disabled]=\"titleInput.invalid || contentInput.invalid\" type=\"submit\" class=\"btn btn-default\" (click)=\"post(title, content)\">Post it!</button>\r\n</form>"
+module.exports = "<form #postForm=\"ngForm\">\r\n    <div class=\"form-group\" [ngClass]=\"{ 'has-error': titleInput.invalid && !titleInput.untouched}\">\r\n        <label for=\"title\">Title</label>\r\n        <input type=\"text\" class=\"form-control\" name =\"title\" [(ngModel)] =\"title\" placeholder=\"Title\" #titleInput=\"ngModel\" required>\r\n    </div>\r\n    <div class=\"form-group\" [ngClass]=\"{ 'has-error': contentInput.invalid && !contentInput.untouched}\">\r\n        <label for=\"content\">Content</label>\r\n        <textarea type=\"text\" rows=\"5\" class=\"form-control\" name=\"content\" [(ngModel)]=\"content\" placeholder=\"Your content here\" #contentInput=\"ngModel\" required></textarea>\r\n    </div>\r\n    <button [disabled]=\"titleInput.invalid || contentInput.invalid\" type=\"submit\" class=\"btn btn-default\" (click)=\"post(title, content); postForm.reset()\">Post it!</button>\r\n</form>"
 
 /***/ }),
 
@@ -243,8 +243,6 @@ var PosterComponent = (function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded' });
         this._httpService.post('/api/posts', params.toString(), { headers: headers })
             .subscribe(function (resp) {
-            _this.title = "";
-            _this.content = "";
             _this.onPosted.emit(resp);
         });
         console.log("ok");

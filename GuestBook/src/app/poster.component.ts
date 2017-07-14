@@ -1,5 +1,6 @@
 ﻿import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http'
+import { NgForm, FormGroup } from '@angular/forms'
 
 @Component({
     selector: 'poster-comp',
@@ -19,8 +20,6 @@ export class PosterComponent {
 
         this._httpService.post('/api/posts', params.toString(), { headers: headers })
             .subscribe(resp => {
-                this.title = "";
-                this.content = "";
                 this.onPosted.emit(resp);
             });
 
