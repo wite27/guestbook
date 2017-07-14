@@ -19,8 +19,13 @@ namespace GuestBook.Controllers
             this._context = context;
         }
 
-        // GET: api/posts
-
+        /// <summary>
+        /// Returns filtered posts on concrete page.
+        /// </summary>
+        /// <param name="page">Number of page.</param>
+        /// <param name="region">Field to search <paramref name="template"/> in. Use one of "title", "content" or "both".</param>
+        /// <param name="template">Template for exact matching.</param>
+        /// <returns>Posts on concrete page.</returns>
         [HttpGet]
         public PagedPosts Get(int page = 1, string region = "", string template = "")
         {
@@ -42,6 +47,11 @@ namespace GuestBook.Controllers
                             content && p.Content.Contains(template));
         }
 
+        /// <summary>
+        /// Adds post with specified <paramref name="title"/> and <paramref name="content"/>
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="content"></param>
         [HttpPost]
         public void Post(string title, string content)
         {

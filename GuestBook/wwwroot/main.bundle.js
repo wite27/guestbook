@@ -235,14 +235,18 @@ var PosterComponent = (function () {
         this._httpService = _httpService;
         this.onPosted = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */]();
     }
-    PosterComponent.prototype.post = function (title, content) {
+    PosterComponent.prototype.post = function () {
         var _this = this;
         var params = new URLSearchParams();
-        params.set('title', title);
-        params.set('content', content);
+        params.set('title', this.title);
+        params.set('content', this.content);
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded' });
         this._httpService.post('/api/posts', params.toString(), { headers: headers })
-            .subscribe(function (resp) { return _this.onPosted.emit(resp); });
+            .subscribe(function (resp) {
+            _this.title = "";
+            _this.content = "";
+            _this.onPosted.emit(resp);
+        });
         console.log("ok");
     };
     return PosterComponent;
